@@ -19,7 +19,7 @@ async function main() {
   const vendor1 = await prisma.vendor.create({
     data: {
       id: 'v1',
-      companyName: 'Vortex Soft Innovations',
+      companyName: 'Vortexsoft Innovations Private Limited',
       contactPerson: 'Chinthana',
       email: 'chinthana@vortexsoftinnovations.com',
       phone: '+91 98765 43210',

@@ -114,6 +114,17 @@ export default function LoginPage() {
               </div>
             ))}
           </div>
+
+          {/* Vortexsoft Partner Badge */}
+          <div className="mt-8 flex items-center gap-3.5 bg-white/5 border border-white/10 rounded-2xl p-3.5 max-w-sm backdrop-blur-md">
+            <div className="bg-white rounded-xl px-2 py-1.5 flex items-center justify-center flex-shrink-0 shadow-md">
+              <img src="/logo.png" alt="Vortexsoft Innovations Private Limited" className="h-7 object-contain" />
+            </div>
+            <div>
+              <div className="text-[10px] uppercase tracking-wider text-blue-400 font-bold">Featured Vendor Partner</div>
+              <div className="text-xs text-white font-medium">Vortexsoft Innovations Private Limited</div>
+            </div>
+          </div>
         </div>
       </div>
 

@@ -53,15 +53,34 @@ export function Sidebar({ role, userName, userEmail }: SidebarProps) {
   return (
     <aside className={cn('sidebar flex flex-col', collapsed && 'collapsed')}>
       {/* Logo */}
-      <div className={cn('p-5 border-b border-white/[0.07] flex items-center gap-3', collapsed && 'justify-center p-4')}>
-        <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center flex-shrink-0 glow-blue">
-          <span className="text-white font-bold text-sm">M</span>
-        </div>
-        {!collapsed && (
-          <div>
-            <div className="font-bold text-white text-sm leading-tight">MindCrew</div>
-            <div className="text-[10px] text-slate-400">HireHub</div>
-          </div>
+      <div className={cn('p-4 border-b border-white/[0.07] flex items-center gap-3', collapsed && 'justify-center p-3')}>
+        {role === 'vendor' ? (
+          collapsed ? (
+            <div className="w-10 h-10 rounded-xl bg-white p-1 flex items-center justify-center flex-shrink-0 shadow-md">
+              <img src="/logo.png" alt="Vortexsoft" className="w-full h-full object-contain" />
+            </div>
+          ) : (
+            <div className="flex flex-col gap-1">
+              <div className="bg-white/95 rounded-xl px-2.5 py-1.5 shadow-md flex items-center justify-center max-w-[210px]">
+                <img src="/logo.png" alt="Vortexsoft Innovations Private Limited" className="h-8 object-contain" />
+              </div>
+              <div className="text-[10px] text-slate-400 font-medium px-1 truncate">
+                Vortexsoft Innovations Pvt. Ltd.
+              </div>
+            </div>
+          )
+        ) : (
+          <>
+            <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center flex-shrink-0 glow-blue">
+              <span className="text-white font-bold text-sm">M</span>
+            </div>
+            {!collapsed && (
+              <div>
+                <div className="font-bold text-white text-sm leading-tight">MindCrew</div>
+                <div className="text-[10px] text-slate-400">HireHub Platform</div>
+              </div>
+            )}
+          </>
         )}
       </div>
 

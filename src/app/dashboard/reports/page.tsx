@@ -7,7 +7,7 @@ import { cn } from '@/lib/utils';
 const vendorPerf = [
   { name: 'TechStaff Solutions', submissions: 41, approved: 8, rate: 19.5 },
   { name: 'Apex Talent Hub', submissions: 33, approved: 5, rate: 15.2 },
-  { name: 'Vortex Soft Innovations', submissions: 24, approved: 3, rate: 12.5 },
+  { name: 'Vortexsoft Innovations Private Limited', submissions: 24, approved: 3, rate: 12.5 },
   { name: 'Nexus Recruit', submissions: 19, approved: 4, rate: 21.0 },
   { name: 'Global Staffing India', submissions: 8, approved: 1, rate: 12.5 },
 ];

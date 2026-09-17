@@ -37,24 +37,33 @@ jobs:
         run: |
           mkdir -p deploy-package
           
-          # Copy standalone server if available
+          # 1. Copy standalone server
           if [ -d ".next/standalone" ]; then
             cp -r .next/standalone/* deploy-package/
-            mkdir -p deploy-package/.next
+          fi
+          
+          # 2. Copy static assets to .next/static
+          mkdir -p deploy-package/.next
+          if [ -d ".next/static" ]; then
             cp -r .next/static deploy-package/.next/
           fi
           
-          # Copy public assets & logo
-          mkdir -p deploy-package/public
-          cp -r public/* deploy-package/public/ || true
-          cp -r public/* deploy-package/ || true
+          # 3. Copy compiled HTML pages for direct Apache web serving
+          if [ -d ".next/server/app" ]; then
+            find .next/server/app -type f -name "*.html" -exec cp {} deploy-package/ \;
+            # Copy nested page structures
+            cp -r .next/server/app/* deploy-package/ 2>/dev/null || true
+          fi
           
-          # Copy .htaccess for Apache routing
+          # 4. Copy public folder assets (logo, images, SVGs)
+          cp -r public/* deploy-package/ 2>/dev/null || true
+          
+          # 5. Copy .htaccess for Apache DirectoryIndex & routing
           if [ -f "public/.htaccess" ]; then
             cp public/.htaccess deploy-package/.htaccess
           fi
           
-          # Include production package.json and ecosystem
+          # 6. Production package.json
           cp package.json deploy-package/
 
       - name: Deploy to Hostinger via FTP

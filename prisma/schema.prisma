@@ -1,5 +1,5 @@
 datasource db {
-  provider = "sqlite"
+  provider = "mysql"
   url      = env("DATABASE_URL")
 }
 
@@ -30,7 +30,7 @@ model Vendor {
   contactPerson String
   email         String           @unique
   phone         String?
-  address       String?
+  address       String?          @db.Text
   isActive      Boolean          @default(true)
   createdAt     DateTime         @default(now())
   updatedAt     DateTime         @updatedAt
@@ -43,15 +43,15 @@ model Vendor {
 model Requirement {
   id                 String       @id @default(cuid())
   title              String
-  description        String
+  description        String       @db.Text
   jobType            String       // "remote" | "onsite" | "hybrid"
   location           String
   minExperience      Int          @default(0)
   targetClosureDate  String
   budget             String?
-  mandatorySkills    String       // JSON string array
-  primarySkills      String       // JSON string array
-  secondarySkills    String       // JSON string array
+  mandatorySkills    String       @db.Text // JSON string array
+  primarySkills      String       @db.Text // JSON string array
+  secondarySkills    String       @db.Text // JSON string array
   status             String       @default("open") // "open" | "on_hold" | "closed"
   createdById        String
   postedDate         String
@@ -74,11 +74,11 @@ model Submission {
   relevantExperience Float        @default(0)
   jdComfortable      Boolean      @default(true)
   cvFilename         String?
-  cvUrl              String?
+  cvUrl              String?      @db.Text
   status             String       @default("submitted") // "submitted" | "screening_scheduled" | "screening_done" | "interview_scheduled" | "offer_offered" | "approved" | "rejected"
   screeningDate      String?
   screeningTimeSlot  String?
-  meetingLink        String?
+  meetingLink        String?      @db.Text
   scheduledAt        String?
   createdAt          DateTime     @default(now())
   updatedAt          DateTime     @updatedAt
@@ -90,9 +90,9 @@ model VendorDocument {
   vendor       Vendor    @relation(fields: [vendorId], references: [id], onDelete: Cascade)
   name         String
   type         String    // "contract" | "nda" | "compliance" | "other"
-  fileUrl      String?
+  fileUrl      String?   @db.Text
   uploadedById String
-  responseUrl  String?
+  responseUrl  String?   @db.Text
   status       String    @default("pending_response") // "pending_response" | "responded" | "approved" | "rejected"
   createdAt    DateTime  @default(now())
   updatedAt    DateTime  @updatedAt
@@ -104,7 +104,7 @@ model Notification {
   user              User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   type              String    // "new_requirement" | "submission_update" | "screening_scheduled" | "document"
   title             String
-  message           String
+  message           String    @db.Text
   isRead            Boolean   @default(false)
   relatedEntityType String?
   relatedEntityId   String?

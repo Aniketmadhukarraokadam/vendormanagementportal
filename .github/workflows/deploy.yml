@@ -1,0 +1,69 @@
+name: Auto Deploy to Live Server
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci || npm install
+
+      - name: Generate Prisma Client
+        run: npx prisma generate
+
+      - name: Build Next.js Application
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          JWT_SECRET: ${{ secrets.JWT_SECRET }}
+        run: npm run build
+
+      - name: Prepare Deployment Package
+        run: |
+          mkdir -p deploy-package
+          
+          # Copy standalone server if available
+          if [ -d ".next/standalone" ]; then
+            cp -r .next/standalone/* deploy-package/
+            mkdir -p deploy-package/.next
+            cp -r .next/static deploy-package/.next/
+          fi
+          
+          # Copy public assets & logo
+          mkdir -p deploy-package/public
+          cp -r public/* deploy-package/public/ || true
+          cp -r public/* deploy-package/ || true
+          
+          # Copy .htaccess for Apache routing
+          if [ -f "public/.htaccess" ]; then
+            cp public/.htaccess deploy-package/.htaccess
+          fi
+          
+          # Include production package.json and ecosystem
+          cp package.json deploy-package/
+
+      - name: Deploy to Hostinger via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          port: ${{ secrets.FTP_PORT || 21 }}
+          local-dir: ./deploy-package/
+          server-dir: ./
+          dangerous-clean-slate: false

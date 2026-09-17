@@ -1,0 +1,121 @@
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id           String    @id @default(cuid())
+  name         String
+  email        String    @unique
+  username     String    @unique
+  passwordHash String
+  role         String    // "admin" | "hr" | "vendor"
+  vendorId     String?
+  vendor       Vendor?   @relation(fields: [vendorId], references: [id], onDelete: SetNull)
+  isActive     Boolean   @default(true)
+  lastLoginAt  DateTime?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  notifications Notification[]
+}
+
+model Vendor {
+  id            String           @id @default(cuid())
+  companyName   String
+  contactPerson String
+  email         String           @unique
+  phone         String?
+  address       String?
+  isActive      Boolean          @default(true)
+  createdAt     DateTime         @default(now())
+  updatedAt     DateTime         @updatedAt
+
+  users         User[]
+  submissions   Submission[]
+  documents     VendorDocument[]
+}
+
+model Requirement {
+  id                 String       @id @default(cuid())
+  title              String
+  description        String
+  jobType            String       // "remote" | "onsite" | "hybrid"
+  location           String
+  minExperience      Int          @default(0)
+  targetClosureDate  String
+  budget             String?
+  mandatorySkills    String       // JSON string array
+  primarySkills      String       // JSON string array
+  secondarySkills    String       // JSON string array
+  status             String       @default("open") // "open" | "on_hold" | "closed"
+  createdById        String
+  postedDate         String
+  createdAt          DateTime     @default(now())
+  updatedAt          DateTime     @updatedAt
+
+  submissions        Submission[]
+}
+
+model Submission {
+  id                 String       @id @default(cuid())
+  requirementId      String
+  requirement        Requirement  @relation(fields: [requirementId], references: [id], onDelete: Cascade)
+  vendorId           String
+  vendor             Vendor       @relation(fields: [vendorId], references: [id], onDelete: Cascade)
+  candidateName      String
+  candidateEmail     String
+  candidatePhone     String
+  totalExperience    Float        @default(0)
+  relevantExperience Float        @default(0)
+  jdComfortable      Boolean      @default(true)
+  cvFilename         String?
+  cvUrl              String?
+  status             String       @default("submitted") // "submitted" | "screening_scheduled" | "screening_done" | "interview_scheduled" | "offer_offered" | "approved" | "rejected"
+  screeningDate      String?
+  screeningTimeSlot  String?
+  meetingLink        String?
+  scheduledAt        String?
+  createdAt          DateTime     @default(now())
+  updatedAt          DateTime     @updatedAt
+}
+
+model VendorDocument {
+  id           String    @id @default(cuid())
+  vendorId     String
+  vendor       Vendor    @relation(fields: [vendorId], references: [id], onDelete: Cascade)
+  name         String
+  type         String    // "contract" | "nda" | "compliance" | "other"
+  fileUrl      String?
+  uploadedById String
+  responseUrl  String?
+  status       String    @default("pending_response") // "pending_response" | "responded" | "approved" | "rejected"
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+}
+
+model Notification {
+  id                String    @id @default(cuid())
+  userId            String
+  user              User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  type              String    // "new_requirement" | "submission_update" | "screening_scheduled" | "document"
+  title             String
+  message           String
+  isRead            Boolean   @default(false)
+  relatedEntityType String?
+  relatedEntityId   String?
+  createdAt         DateTime  @default(now())
+}
+
+model ScreeningSlot {
+  id           String    @id @default(cuid())
+  date         String
+  time         String
+  isAvailable  Boolean   @default(true)
+  submissionId String?
+  createdAt    DateTime  @default(now())
+}

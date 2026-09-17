@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" width="100%" height="100%">
+  <defs>
+    <filter id="haikei-blur-1" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="80"/>
+    </filter>
+    <linearGradient id="blob-grad-1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3b82f6" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#8b5cf6" stop-opacity="0.15"/>
+    </linearGradient>
+    <linearGradient id="blob-grad-2" x1="100%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#06b6d4" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#3b82f6" stop-opacity="0.1"/>
+    </linearGradient>
+    <linearGradient id="blob-grad-3" x1="50%" y1="0%" x2="50%" y2="100%">
+      <stop offset="0%" stop-color="#a855f7" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="#ec4899" stop-opacity="0.08"/>
+    </linearGradient>
+  </defs>
+
+  <g filter="url(#haikei-blur-1)">
+    <!-- Organic Blob 1 -->
+    <path fill="url(#blob-grad-1)" d="M220,-280C290,-230,340,-160,360,-80C380,0,370,90,330,170C290,250,220,320,140,350C60,380,-30,370,-110,340C-190,310,-260,260,-300,190C-340,120,-350,30,-330,-50C-310,-130,-260,-200,-190,-250C-120,-300,-40,-330,40,-340C120,-350,150,-330,220,-280Z" transform="translate(350, 250) scale(1.1)"/>
+    
+    <!-- Organic Blob 2 -->
+    <path fill="url(#blob-grad-2)" d="M200,-250C260,-200,300,-130,320,-50C340,30,330,120,290,190C250,260,180,310,100,340C20,370,-60,380,-140,350C-220,320,-300,260,-340,180C-380,100,-380,0,-350,-90C-320,-180,-260,-260,-180,-310C-100,-360,-20,-380,60,-370C140,-360,140,-300,200,-250Z" transform="translate(900, 500) scale(0.95)"/>
+
+    <!-- Organic Blob 3 -->
+    <path fill="url(#blob-grad-3)" d="M180,-210C230,-160,260,-90,270,-20C280,50,270,120,230,180C190,240,120,290,40,310C-40,330,-120,320,-190,280C-260,240,-310,170,-330,90C-350,10,-340,-80,-300,-150C-260,-220,-190,-270,-110,-290C-30,-310,50,-300,120,-270C190,-240,130,-260,180,-210Z" transform="translate(600, 700) scale(0.85)"/>
+  </g>
+</svg>

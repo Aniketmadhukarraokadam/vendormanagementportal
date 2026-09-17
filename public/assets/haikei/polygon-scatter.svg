@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" width="100%" height="100%" preserveAspectRatio="none">
+  <defs>
+    <linearGradient id="poly-grad-1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3b82f6" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="#1e3a8a" stop-opacity="0.02"/>
+    </linearGradient>
+    <linearGradient id="poly-grad-2" x1="100%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#8b5cf6" stop-opacity="0.10"/>
+      <stop offset="100%" stop-color="#4c1d95" stop-opacity="0.01"/>
+    </linearGradient>
+    <linearGradient id="poly-grad-3" x1="50%" y1="100%" x2="50%" y2="0%">
+      <stop offset="0%" stop-color="#06b6d4" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#0f172a" stop-opacity="0.02"/>
+    </linearGradient>
+  </defs>
+
+  <g stroke="rgba(255, 255, 255, 0.04)" stroke-width="1">
+    <polygon fill="url(#poly-grad-1)" points="0,0 240,120 180,320 0,250" />
+    <polygon fill="url(#poly-grad-2)" points="240,120 540,80 480,290 180,320" />
+    <polygon fill="url(#poly-grad-1)" points="540,80 840,150 780,360 480,290" />
+    <polygon fill="url(#poly-grad-3)" points="840,150 1140,90 1080,310 780,360" />
+    <polygon fill="url(#poly-grad-2)" points="1140,90 1440,160 1440,380 1080,310" />
+
+    <polygon fill="url(#poly-grad-3)" points="0,250 180,320 120,540 0,580" />
+    <polygon fill="url(#poly-grad-1)" points="180,320 480,290 420,560 120,540" />
+    <polygon fill="url(#poly-grad-2)" points="480,290 780,360 720,600 420,560" />
+    <polygon fill="url(#poly-grad-1)" points="780,360 1080,310 1020,580 720,600" />
+    <polygon fill="url(#poly-grad-3)" points="1080,310 1440,380 1440,640 1020,580" />
+
+    <polygon fill="url(#poly-grad-2)" points="0,580 120,540 80,800 0,850" />
+    <polygon fill="url(#poly-grad-1)" points="120,540 420,560 360,820 80,800" />
+    <polygon fill="url(#poly-grad-3)" points="420,560 720,600 660,850 360,820" />
+    <polygon fill="url(#poly-grad-2)" points="720,600 1020,580 960,840 660,850" />
+    <polygon fill="url(#poly-grad-1)" points="1020,580 1440,640 1440,900 960,840" />
+  </g>
+</svg>

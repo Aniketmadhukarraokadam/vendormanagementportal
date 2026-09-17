@@ -33,10 +33,10 @@ export function Header({ title, userEmail, userRole }: HeaderProps) {
   };
 
   return (
-    <header className="sticky top-0 z-30 h-16 flex items-center justify-between px-6 border-b border-white/[0.07] bg-black/20 backdrop-blur-xl">
+    <header className="sticky top-0 z-30 h-16 flex items-center justify-between px-6 border-b border-slate-200 bg-white/90 backdrop-blur-xl shadow-xs">
       {/* Left: title */}
       <div>
-        <h1 className="text-lg font-semibold text-white">{title}</h1>
+        <h1 className="text-lg font-semibold text-slate-900">{title}</h1>
       </div>
 
       {/* Right: actions */}
@@ -44,7 +44,7 @@ export function Header({ title, userEmail, userRole }: HeaderProps) {
         {/* Theme toggle */}
         <button
           onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-          className="w-9 h-9 rounded-xl glass flex items-center justify-center text-slate-400 hover:text-white transition-colors"
+          className="w-9 h-9 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 flex items-center justify-center text-slate-600 hover:text-slate-900 transition-colors shadow-xs"
           title="Toggle theme"
         >
           {theme === 'dark' ? <Sun size={17} /> : <Moon size={17} />}
@@ -54,11 +54,11 @@ export function Header({ title, userEmail, userRole }: HeaderProps) {
         <div className="relative">
           <button
             onClick={() => { setNotifOpen(!notifOpen); setProfileOpen(false); }}
-            className="w-9 h-9 rounded-xl glass flex items-center justify-center text-slate-400 hover:text-white transition-colors relative"
+            className="w-9 h-9 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 flex items-center justify-center text-slate-600 hover:text-slate-900 transition-colors relative shadow-xs"
           >
             <Bell size={17} />
             {unread > 0 && (
-              <span className="absolute -top-1 -right-1 min-w-[18px] h-[18px] bg-blue-500 text-white text-[10px] font-bold rounded-full flex items-center justify-center px-1 animate-pulse-glow">
+              <span className="absolute -top-1 -right-1 min-w-[18px] h-[18px] bg-blue-600 text-white text-[10px] font-bold rounded-full flex items-center justify-center px-1">
                 {unread > 9 ? '9+' : unread}
               </span>
             )}
@@ -100,28 +100,28 @@ export function Header({ title, userEmail, userRole }: HeaderProps) {
         <div className="relative">
           <button
             onClick={() => { setProfileOpen(!profileOpen); setNotifOpen(false); }}
-            className="flex items-center gap-2 px-3 py-2 rounded-xl glass hover:bg-white/[0.06] transition-all"
+            className="flex items-center gap-2.5 px-3 py-1.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 transition-all shadow-xs"
           >
-            <div className="w-7 h-7 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white text-xs font-bold">
+            <div className="w-7 h-7 rounded-full bg-gradient-to-br from-blue-600 to-indigo-600 flex items-center justify-center text-white text-xs font-bold shadow-xs">
               {userEmail[0].toUpperCase()}
             </div>
             <div className="text-left hidden sm:block">
-              <div className="text-xs text-white font-medium truncate max-w-[150px]">{userEmail}</div>
-              <div className="text-[10px] text-slate-400 capitalize">{userRole}</div>
+              <div className="text-xs text-slate-800 font-semibold truncate max-w-[150px]">{userEmail}</div>
+              <div className="text-[10px] text-slate-500 font-medium capitalize">{userRole}</div>
             </div>
-            <ChevronDown size={14} className="text-slate-400" />
+            <ChevronDown size={14} className="text-slate-500" />
           </button>
 
           {profileOpen && (
-            <div className="absolute right-0 top-12 w-52 modal-content animate-fade-in z-50 shadow-2xl p-1">
-              <button className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm text-slate-300 hover:text-white hover:bg-white/[0.05] transition-all">
-                <User size={15} /> Profile Settings
+            <div className="absolute right-0 top-12 w-52 bg-white border border-slate-200 rounded-xl animate-fade-in z-50 shadow-xl p-1">
+              <button className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm text-slate-700 hover:text-slate-900 hover:bg-slate-50 transition-all">
+                <User size={15} className="text-slate-500" /> Profile Settings
               </button>
-              <button className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm text-slate-300 hover:text-white hover:bg-white/[0.05] transition-all">
-                <KeyRound size={15} /> Change Password
+              <button className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm text-slate-700 hover:text-slate-900 hover:bg-slate-50 transition-all">
+                <KeyRound size={15} className="text-slate-500" /> Change Password
               </button>
-              <div className="border-t border-white/[0.07] my-1" />
-              <Link href="/" className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm text-red-400 hover:bg-red-500/10 transition-all">
+              <div className="border-t border-slate-100 my-1" />
+              <Link href="/" className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm text-red-600 hover:bg-red-50 transition-all">
                 <LogOut size={15} /> Sign Out
               </Link>
             </div>
